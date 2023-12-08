@@ -89,9 +89,14 @@ netplan apply
 
 ### [Пост-установка Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/)
 
-
-
-## Очистка кеша/всего:
+## Очистка кеша:
 ```bash
-docker system prune [-a/-f]
+docker system prune -a -f
+```
+
+## Очистка прочего:
+```bash
+sudo systemctl stop docker
+sudo rm -rf /var/lib/docker
+sudo systemctl start docker
 ```
