@@ -4,12 +4,12 @@ Welcome to my repository of cheat sheets for various IT tools. Below, you'll fin
 
 ## Table of Contents
 
-- **Ansible** ([English](en/ansible-en.md)/[Russian](ru/ansible-ru.md)): Automation of configuration and system management.
-- **Elasticsearch** ([English](en/elastic-en.md)/[Russian](ru/elastic-ru.md)): Search and data analysis.
-- **Kubernetes** ([English](en/kubectl-en.md)/[Russian](ru/kubectl-ru.md)): Container orchestration and cluster management.
-- **Regular Expressions** ([English](en/regulars-en.md)/[Russian](ru/regulars-ru.md)): A powerful tool for working with text.
-- **Ubuntu** ([English](en/ubuntu-en.md)/[Russian](ru/ubuntu-ru.md)): Basic settings and recommendations for using Ubuntu.
-- **HashiCorp Vault** ([English](en/vault-en.md)/[Russian](ru/vault-ru.md)): Management of secrets and access.
+- **Ansible** (English/[Russian](ru/ansible-ru.md)): Automation of configuration and system management.
+- **Elasticsearch** (English/[Russian](ru/elastic-ru.md)): Search and data analysis.
+- **Kubernetes** (English/[Russian](ru/kubectl-ru.md)): Container orchestration and cluster management.
+- **Regular Expressions** (English/[Russian](ru/regulars-ru.md)): A powerful tool for working with text.
+- **Ubuntu** (English/[Russian](ru/ubuntu-ru.md)): Basic settings and recommendations for using Ubuntu.
+- **HashiCorp Vault** ([English](en/vault-en.md)/Russian): Management of secrets and access.
 
 ## How to Use
 
