@@ -48,6 +48,10 @@ kubectl config view
 ```
 kubectl config use-context minikube
 ```
+## Подключение к кластеру по конфигурации (~/.kube/cluster.yaml):
+```
+export KUBECONFIG=~/.kube/cluster.yaml
+```
 ## Просмотр среды кластера:
 ```
 kubectl get namespaces
@@ -122,4 +126,14 @@ kubectl delete service <service_name>
 ```
 ```
 kubectl delete deployment <deployment_name>
+```
+# Helm
+## Nginx-controller
+### Установка
+```
+helm install имя-контроллера ingress-nginx --repo https://kubernetes.github.io/ingress-nginx -f путь-к-конфигу-контроллера
+```
+### Удаление
+```
+helm uninstall имя-контроллера
 ```
