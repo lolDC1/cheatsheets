@@ -3,7 +3,7 @@
 - **Ansible** (English/[Russian](../ru/ansible-ru.md)): Automation of configuration and system management.
 - **Elasticsearch** (English/[Russian](../ru/elastic-ru.md)): Search and data analysis.
 - **Kubernetes** (English/[Russian](../ru/kubectl-ru.md)): Container orchestration and cluster management.
-- **Regular Expressions** (English/[Russian](../ru/regulars-ru.md)): A powerful tool for working with text.
+- **Regular Expressions** (English/[Russian](../ru/regex-ru.md)): A powerful tool for working with text.
 - **Ubuntu** (English/[Russian](../ru/ubuntu-ru.md)): Basic settings and recommendations for using Ubuntu.
 - **HashiCorp Vault** ([English](vault-en.md)/Russian): Management of secrets and access.
 

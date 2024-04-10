@@ -3,7 +3,7 @@
 - **Ansible** (English/[Russian](ansible-ru.md)): Automation of configuration and system management.
 - **Elasticsearch** (English/[Russian](elastic-ru.md)): Search and data analysis.
 - **Kubernetes** (English/[Russian](kubectl-ru.md)): Container orchestration and cluster management.
-- **Regular Expressions** (English/[Russian](regulars-ru.md)): A powerful tool for working with text.
+- **Regular Expressions** (English/[Russian](regex-ru.md)): A powerful tool for working with text.
 - **Ubuntu** (English/[Russian](ubuntu-ru.md)): Basic settings and recommendations for using Ubuntu.
 - **HashiCorp Vault** ([English](../en/vault-en.md)/Russian): Management of secrets and access.
 
@@ -21,7 +21,7 @@
 
 **Маштабирование горизонтальное (Horizontal Scaling)** - Процесс автоматического увеличения или уменьшения количества реплик приложения для обеспечения баланса нагрузки и устойчивости.
 
-**Мастер-узел (Master Node)** - Основной компонент Kubernetes, который управляет кластером, принимает решения о развертывании и управлении подами.
+**Мастер нода (Master Node)** - Основной компонент Kubernetes, который управляет кластером, принимает решения о развертывании и управлении подами.
 
 **Рабочая нода (Worker Node)** - Узел в кластере Kubernetes, на котором запускаются и работают поды.
 
@@ -136,4 +136,30 @@ helm install имя-контроллера ingress-nginx --repo https://kubernet
 ### Удаление
 ```
 helm uninstall имя-контроллера
+```
+### Вывод установленных чартов
+```
+helm list
+```
+
+## Cert-manager
+### Добавление helm репозитория
+```
+helm repo add jetstack https://charts.jetstack.io | helm repo update
+```
+### Установка
+#### Способ №1
+```
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.crds.yaml
+```
+#### Способ №2
+Чтобы автоматически устанавливать CRD и управлять ими как часть Helm, вы должны добавить флаг --set installCRDs=true в команду установки Helm.
+
+```
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.13.3 \
+  # --set installCRDs=true
 ```

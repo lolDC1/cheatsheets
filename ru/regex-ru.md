@@ -3,7 +3,7 @@
 - **Ansible** (English/[Russian](ansible-ru.md)): Automation of configuration and system management.
 - **Elasticsearch** (English/[Russian](elastic-ru.md)): Search and data analysis.
 - **Kubernetes** (English/[Russian](kubectl-ru.md)): Container orchestration and cluster management.
-- **Regular Expressions** (English/[Russian](regulars-ru.md)): A powerful tool for working with text.
+- **Regular Expressions** (English/[Russian](regex-ru.md)): A powerful tool for working with text.
 - **Ubuntu** (English/[Russian](ubuntu-ru.md)): Basic settings and recommendations for using Ubuntu.
 - **HashiCorp Vault** ([English](../en/vault-en.md)/Russian): Management of secrets and access.
 
@@ -166,3 +166,11 @@
     ```bash
     ^([a-zA-Z0-9_\-\.\+]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$
     ```
+- Ввод значения в начало строки: 
+    - Ctrl+H
+    - Find: `(^)`
+    - Replase: `string $1`
+- Ввод значения в конец строки: 
+    - Ctrl+H
+    - Find: `($)` const const 
+    - Replase: `$1 string`
