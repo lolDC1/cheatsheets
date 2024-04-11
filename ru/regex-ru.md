@@ -102,7 +102,7 @@
 ### Регулярные выражения POSIX Extended Regular Expression (ERE)
 Стандарт сложнее, используется не везде
 
-- **\?** - провторение символа 0 либо 1 раз
+- **\?** - повторение символа 0 либо 1 раз
     ```bash
     echo "tet" | awk '/tes?t/{print $0}'
     ```
@@ -112,7 +112,7 @@
     ```bash
     echo "tesst" | awk '/tes?t/{print $0}'
     ```
-- **\+** - провторение символа 1 и более раз
+- **\+** - повторение символа 1 и более раз
     ```bash
     echo "test" | awk '/te+st/{print $0}'
     ```
@@ -154,10 +154,10 @@
     ```
 - **()** - групирование фрагментов регулярных выражений
     ```bash
-        echo "Like" | awk '/Like(Geeks)?/{print $0}'
+    echo "Like" | awk '/Like(Geeks)?/{print $0}'
     ```
     ```bash
-        echo "LikeGeeks" | awk '/Like(Geeks)?/{print $0}'
+    echo "LikeGeeks" | awk '/Like(Geeks)?/{print $0}'
     ```
 ## Примеры:
 
