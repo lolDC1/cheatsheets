@@ -137,3 +137,53 @@ sudo systemctl stop docker
 sudo rm -rf /var/lib/docker
 sudo systemctl start docker
 ```
+
+## WSL 2
+### Сжать VHD, чтобы освободить неиспользуемое пространство WSL
+Выключите WSL
+```powershell
+wsl --shutdown
+```
+
+#### Метод 1: [Автоматическая очистка диска (Set sparse VHD)](https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/#automatic-disk-space-clean-up-set-sparse-vhd):
+
+Виртуальные жесткие диски WSL (VHD) увеличиваются в размерах по мере их использования, и теперь, когда эта функция включена, они также автоматически уменьшаются в размерах! Этот новый параметр автоматически определяет любой новый виртуальный жесткий диск как разреженный виртуальный жесткий диск, что позволяет автоматически уменьшить его размер.
+
+```powershell
+wsl --manage <distro> --set-sparse true
+```
+
+Вы также можете добавить следующее в свой .wslconfig (расположенный в каталоге вашего профиля Windows, а не внутри WSL), чтобы любой вновь созданный образ дистрибутива был в режиме sparse:
+
+```
+[experimental]
+sparseVhd=true
+```
+**ВАЖНО:** Если этот метод не сработал и вы хотите использовать следующие, вам необходимо задать режим set-sparse в значение false.
+
+#### Метод 2: DISKPART
+
+```powershell
+diskpart
+select vdisk file="C:\Users\%USERPROFILE%\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu...\LocalState\ext4.vhdx" # default path
+compact vdisk
+```
+
+#### Метод 3: Hyper-V
+
+- Перейдите в "Включение или отключение функций Windows"
+- Включите Hyper-V
+- Перезагрузка
+- Используйте команду:
+    ```powershell
+    optimize-vhd -Path C:\Users\%USERPROFILE%\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu...\LocalState\ext4.vhdx -Mode full
+    ```
+
+**ВАЖНО:** Если вы получаете сообщение об ошибке "**Virtual hard disk files must be uncompressed and unencrypted and must not be sparse**" [Существует](https://github.com/microsoft/WSL/issues/4103) несколько возможных решений:
+- Выключите sparse режим
+- Вручную отключите шифрование и сжатие файловой системы:
+    ```powershell
+    fsutil behavior set disableencryption 1
+    fsutil behavior set disablecompression 1
+    ```
+- Правой кнопкой "LocalState", Свойства, Дополнительно, **выключить** "Сжатие контента..." и "Шифрование контента..."

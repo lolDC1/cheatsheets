@@ -135,3 +135,53 @@ sudo systemctl stop docker
 sudo rm -rf /var/lib/docker
 sudo systemctl start docker
 ```
+
+## WSL 2
+### Shrink VHD to reclaim WSLs unused space
+Turn your WSL off
+```powershell
+wsl --shutdown
+```
+
+#### Method 1 [Automatic disk space clean up (Set sparse VHD)](https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/#automatic-disk-space-clean-up-set-sparse-vhd):
+
+WSL virtual hard disks (VHDs) grow in size as you use them, and now with this feature enabled they will automatically shrink in size too! This new setting automatically sets any new VHD to be a sparse VHD, which can automatically reduce their size.
+
+```powershell
+wsl --manage <distro> --set-sparse true
+```
+
+You can also add the following to your .wslconfig (located in your Windows profile directory, not inside WSL) to have any newly created distro image be sparse:
+
+```
+[experimental]
+sparseVhd=true
+```
+**NOTE:** If this method didn't work and you willing to use further ones you must set set-sparse mode to false
+
+#### Method 2: DISKPART
+
+```powershell
+diskpart
+select vdisk file="C:\Users\%USERPROFILE%\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu...\LocalState\ext4.vhdx" # default path
+compact vdisk
+```
+
+#### Method 3: Hyper-V
+
+- Go to "Turn Windows features on or off"
+- Enable Hyper-V
+- Reboot
+- Use the command:
+    ```powershell
+    optimize-vhd -Path C:\Users\%USERPROFILE%\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu...\LocalState\ext4.vhdx -Mode full
+    ```
+
+**NOTE:** If you're getting an error "**Virtual hard disk files must be uncompressed and unencrypted and must not be sparse**" There is some possible solutions:
+- Turn the sparse mode off
+- Manually disable fs encryption and compression:
+    ```powershell
+    fsutil behavior set disableencryption 1
+    fsutil behavior set disablecompression 1
+    ```
+- Right click on "LocalState", Properties, Advanced, **deselect** "Compress contents..." and "Encrypt contents..."
