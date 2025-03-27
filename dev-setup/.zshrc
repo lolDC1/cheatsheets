@@ -1,6 +1,31 @@
-# SSH
-eval $(ssh-agent) 
-#ssh-add ~/.ssh/your-ssh-key
+#If you're on Ubuntu and haven't installed zsh yet, you can do so with:
+#sudo apt update && sudo apt install zsh -y
+#
+#Also, don't forget to change your default terminal to zsh by running:
+#chsh -s $(which zsh)
+
+SSH_ENV="$HOME/.ssh/agent-environment"
+
+function start_agent {
+    echo "Initialising new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' >"$SSH_ENV"
+    echo succeeded
+    chmod 600 "$SSH_ENV"
+    . "$SSH_ENV" >/dev/null
+    /usr/bin/ssh-add; 
+}
+
+# Source SSH settings, if applicable
+
+if [ -f "$SSH_ENV" ]; then
+    . "$SSH_ENV" >/dev/null
+    #ps $SSH_AGENT_PID doesn't work under Cygwin
+    ps -ef | grep $SSH_AGENT_PID | grep ssh-agent$ >/dev/null || {
+        start_agent
+    } 
+else
+    start_agent 
+fi 
 
 # History
 export HISTTIMEFORMAT="%d/%m/%y %T "
@@ -13,7 +38,7 @@ alias dprune="docker system prune -a -f"
 
 ## Plugins common aliases
 # groh='git reset origin/$(git_current_branch) --hard'
-# ggl='git pull origin' IF NOTHING ADDED USES CURRENT BRANCH
+# gl='git pull'
 # glods='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
 # kaf='kubectl apply -f'
 # kdelf='kubectl delete -f'
@@ -48,7 +73,8 @@ export ZSH="$REPO_DIR/ohmyzsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="philips"
+ZSH_THEME="risto"
+# daveverwer, risto, philips
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -143,7 +169,7 @@ source $ZSH/oh-my-zsh.sh
 
 #exec tmux
 
-source /home/user/repos/antigen/antigen.zsh
+source $HOME/repos/antigen/antigen.zsh
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -155,3 +181,6 @@ antigen apply
 export PATH=$PATH:~/go/bin
 export PATH=$PATH:~/bin
 export TERM=xterm-256color
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
