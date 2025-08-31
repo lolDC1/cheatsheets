@@ -4,6 +4,9 @@
 #Also, don't forget to change your default terminal to zsh by running:
 #chsh -s $(which zsh)
 
+# Specifies the maximum level of parallelism for concurrent engine calls.
+export COMPOSE_PARALLEL_LIMIT=3
+
 SSH_ENV="$HOME/.ssh/agent-environment"
 
 function start_agent {
@@ -25,16 +28,10 @@ if [ -f "$SSH_ENV" ]; then
     } 
 else
     start_agent 
-fi 
-
-# History
-export HISTTIMEFORMAT="%d/%m/%y %T "
+fi
 
 # Cluster connect
 export KUBECONFIG=~/.kube/config
-
-# Aliases
-alias dprune="docker system prune -a -f"
 
 ## Plugins common aliases
 # groh='git reset origin/$(git_current_branch) --hard'
@@ -74,7 +71,6 @@ export ZSH="$REPO_DIR/ohmyzsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="risto"
-# daveverwer, risto, philips
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -127,7 +123,7 @@ ZSH_THEME="risto"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -169,7 +165,7 @@ source $ZSH/oh-my-zsh.sh
 
 #exec tmux
 
-source $HOME/repos/antigen/antigen.zsh
+source $REPO_DIR/antigen/antigen.zsh
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
